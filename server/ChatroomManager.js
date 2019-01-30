@@ -1,21 +1,21 @@
-const Chatroom = require('./Chatroom');
-const chatroomTemplates = require('../config/chatrooms');
+const Chatroom = require('./Chatroom')
+const chatroomTemplates = require('../config/chatrooms')
 
-module.exports = function() {
+module.exports = function () {
   // mapping of all available chatrooms
   const chatrooms = new Map(
-    chatroomTemplates.maps(c => [
+    chatroomTemplates.map(c => [
       c.name,
       Chatroom(c)
     ])
   )
 
   function removeClient(client) {
-    chatrooms.forEach(c => c.removeUser(client));
+    chatrooms.forEach(c => c.removeUser(client))
   }
 
   function getChatroomByName(chatroomName) {
-    return chatrooms.get(chatroomName);
+    return chatrooms.get(chatroomName)
   }
 
   function serializeChatrooms() {

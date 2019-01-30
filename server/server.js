@@ -1,12 +1,12 @@
-const server = require('http').createServer();
-const io = require('socket.io')(server);
+const server = require('http').createServer()
+const io = require('socket.io')(server)
 
-const ClientManager = require('./ClientManager');
-const ChatroomManager = require('./ChatroomManager');
-const makeHandlers = require('./handlers');
+const ClientManager = require('./ClientManager')
+const ChatroomManager = require('./ChatroomManager')
+const makeHandlers = require('./handlers')
 
-const clientManager = ClientManager();
-const chatroomManager = ChatroomManager();
+const clientManager = ClientManager()
+const chatroomManager = ChatroomManager()
 
 io.on('connection', function (client) {
   const {
@@ -22,15 +22,15 @@ io.on('connection', function (client) {
   console.log('client connected...', client.id)
   clientManager.addClient(client)
 
-  client.on('register', handleRegister);
+  client.on('register', handleRegister)
 
-  client.on('join', handleJoin);
+  client.on('join', handleJoin)
 
-  client.on('leave', handleLeave);
+  client.on('leave', handleLeave)
 
-  client.on('message', handleMessage);
+  client.on('message', handleMessage)
 
-  client.on('chatrooms', handleGetChatrooms);
+  client.on('chatrooms', handleGetChatrooms)
 
   client.on('availableUsers', handleGetAvailableUsers)
 
@@ -40,12 +40,12 @@ io.on('connection', function (client) {
   })
 
   client.on('error', function (err) {
-    console.log('received error from client:', client.id);
-    console.log(err);
+    console.log('received error from client:', client.id)
+    console.log(err)
   })
 })
 
 server.listen(3000, function (err) {
-  if (err) throw err;
-  console.log('listening on port 3000');
+  if (err) throw err
+  console.log('listening on port 3000')
 })

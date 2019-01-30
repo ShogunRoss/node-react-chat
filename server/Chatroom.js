@@ -1,9 +1,9 @@
-module.exports = function({ name, image }) {
-  const members = new Map();
-  let chatHistory = [];
+module.exports = function ({ name, image }) {
+  const members = new Map()
+  let chatHistory = []
 
-  function boardcastMessage(message) {
-    members.forEach(m => m.emit('message', message));
+  function broadcastMessage(message) {
+    members.forEach(m => m.emit('message', message))
   }
 
   function addEntry(entry) {
@@ -11,15 +11,15 @@ module.exports = function({ name, image }) {
   }
 
   function getChatHistory() {
-    return chatHistory.slice();
+    return chatHistory.slice()
   }
 
   function addUser(client) {
-    members.set(client.id, client);
+    members.set(client.id, client)
   }
 
   function removeUser(client) {
-    members.delete(client.id);
+    members.delete(client.id)
   }
 
   function serialize() {
@@ -31,7 +31,7 @@ module.exports = function({ name, image }) {
   }
 
   return {
-    boardcastMessage,
+    broadcastMessage,
     addEntry,
     getChatHistory,
     addUser,

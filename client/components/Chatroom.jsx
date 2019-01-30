@@ -90,7 +90,7 @@ export default class Chatroom extends React.Component {
       input: ''
     }
 
-    this.updateChatHistory = this.updateChatHistory.bind(this)
+    this.onInput = this.onInput.bind(this)
     this.onMessageReceived = this.onMessageReceived.bind(this)
     this.onSendMessage = this.onSendMessage.bind(this)
     this.updateChatHistory = this.updateChatHistory.bind(this)
@@ -167,11 +167,59 @@ export default class Chatroom extends React.Component {
             <Scrollable innerRef={(panel) => { this.panel = panel }}>
               <List>
                 {
-                  
+                  this.state.chatHistory.map(
+                    ({ user, message, event }, i) => [
+                      <NoDots>
+                        <ListItem
+                          key={i}
+                          style={{ color: '#fafafa' }}
+                          leftAvatar={<Avatar src={user.image} />}
+                          primaryText={`${user.name} ${event || ''}`}
+                          secondaryText={
+                            message &&
+                            <OutputText>
+                              { message } 
+                            </OutputText>
+                          }
+                        />
+                      </NoDots>,
+                      <Divider inset />
+                    ]
+                  )
                 }
               </List>
             </Scrollable>
+            <InputPanel>
+              <TextField
+                textareaStyle={{ color: '#fafafa' }}
+                hintStyle={{ color: '#fafafa'}}
+                floatingLabelStyle={{ color:'#fafafa'}}
+                hintText="Enter a message."
+                floatingLabelText="Enter a message."
+                multiLine
+                rows={4}
+                rowsMax={4}
+                onChange={this.onInput}
+                value={this.state.input}
+                onKeyPress={e => (e.key === 'Enter' ? this.onSendMessage() : null)}
+              />
+              <FloatingActionButton
+                onClick={this.onSendMessage}
+                style={{ marginLeft: 20 }}
+              > 
+                <FontIcon
+                  style={{ fontSize: 32}}
+                  className="material-icons"
+                >
+                  {'chat_bubble_outline'}
+                </FontIcon>
+              </FloatingActionButton>
+            </InputPanel>
           </ChatPanel>
+          <Overlay
+            opacity={0.6}
+            background='#111111'
+          />
         </ChatWindow>
       </div>
     )
